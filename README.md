@@ -1,4 +1,4 @@
-# SATTutorChatbot
+# SAT Tutor Chatbot
 ## What is it?
 ### An AI chatbot that is meant to help tutor students on the SAT. It is built with HTML, CSS, JavaScript, and Python. I designed the chatbot specifically to help tutor students with the SAT, and not answer unrelated questions. 
 ## How can I use it?
