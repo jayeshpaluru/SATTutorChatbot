@@ -1,265 +1,35 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SAT Tutor Chatbot</title>
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600&display=swap">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-    <style>
-      * {
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
-      }
-
-      body {
-        font-family: 'Montserrat', sans-serif;
-        background-color: #f5f5f5;
-      }
-
-      .chat-container {
-        width: 100%;
-        max-width: 800px;
-        margin: 0 auto;
-        background-color: #fff;
-        border-radius: 20px;
-        box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
-        overflow: hidden;
-      }
-
-      .chat-header {
-        height: 60px;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        background-color: #34495e;
-        color: #fff;
-        font-size: 24px;
-        font-weight: 600;
-      }
-
-      .chat-box {
-        height: calc(100vh - 170px);
-        padding: 20px;
-        overflow-y: auto;
-        scrollbar-width: thin;
-        scrollbar-color: #dcdcdc #fff;
-      }
-
-      .chat-box::-webkit-scrollbar {
-        width: 5px;
-      }
-
-      .chat-box::-webkit-scrollbar-thumb {
-        background-color: #dcdcdc;
-        border-radius: 5px;
-      }
-
-      .chat-box::-webkit-scrollbar-track {
-        background-color: #fff;
-      }
-
-      .chat-input-container {
-        height: 60px;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        padding: 0 20px;
-        border-top: 1px solid #dcdcdc;
-        background-color: #fff;
-      }
-
-      .chat-input {
-        width: calc(100% - 80px);
-        height: 100%;
-        border: none;
-        outline: none;
-        padding: 10px 20px;
-        font-size: 16px;
-        background-color: #f5f5f5;
-        border-radius: 10px;
-        color: #333;
-        font-weight: 500;
-      }
-
-      .chat-input::placeholder {
-        color: #a5a5a5;
-        font-weight: 400;
-      }
-
-      .chat-submit {
-        width: 60px;
-        height: 100%;
-        border: none;
-        outline: none;
-        background-color: #34495e;
-        color: #fff;
-        font-size: 16px;
-        font-weight: 600;
-        border-radius: 10px;
-        cursor: pointer;
-      }
-
-      .chat-submit:hover {
-        background-color: #2c3e50;
-      }
-
-      .chat-submit:active {
-        background-color: #233140;
-      }
-
-      .chat-message {
-        margin-bottom: 20px;
-      }
-
-      .chat-message-text {
-        max-width: 70%;
-        padding: 10px 20px;
-        border-radius: 20 px;
-      }
-
-      .chat-message-text-user {
-        background-color: #f5f5f5;
-        color: #333;
-      }
-
-      .chat-message-text-bot {
-        background-color: #34495e;
-        color: #fff;
-      }
-
-      .chat-message-text-waiting {
-        position: relative;
-      }
-
-      .typing-indicator {
-        position: absolute;
-        bottom: -20px;
-        left: calc(100% + 10px);
-        display: flex;
-        justify-content: center;
-        align-items: center;
-      }
-
-      .typing-indicator span {
-        width: 8px;
-        height: 8px;
-        margin: 0 2px;
-        border-radius: 50%;
-        background-color: #a5a5a5;
-        animation-name: typing;
-        animation-duration: 1s;
-        animation-iteration-count: infinite;
-        animation-timing-function: ease-in-out;
-      }
-
-      .typing-indicator span:nth-child(1) {
-        animation-delay: 0ms;
-      }
-
-      .typing-indicator span:nth-child(2) {
-        animation-delay: 200ms;
-      }
-
-      .typing-indicator span:nth-child(3) {
-        animation-delay: 400ms;
-      }
-
-      @keyframes typing {
-        0% {
-          transform: translateY(0);
-        }
-
-        50% {
-          transform: translateY(-6px);
-        }
-
-        100% {
-          transform: translateY(0);
-        }
-      }
-    </style>
-  </head>
-  <body>
-    <div class="chat-container">
-      <div class="chat-header">SAT Tutor Chatbot</div>
-      <div class="chat-box" id="chat-box"></div>
-      <div class="chat-input-container">
-        <input type="text" class="chat-input" id="chat-input" placeholder="Type your question...">
-        <button class="chat-submit" id="chat-submit">Send</button>
+   <head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <title>SAT/ACT Tutor Chatbot</title>
+      <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap">
+      <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+      <link rel="icon" type="image/x-icon" href="{{ url_for('static', filename='favicon.ico') }}">
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+      <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+   </head>
+   <body>
+      <div class="overlay">
+         <div class="overlay-content">
+            <h1 class="overlay-header">Welcome to the SAT/ACT chatbot</h1>
+            <p>It's a work in progress</p>
+            <button class="start-chat-button" id="start-chat-button">Start Chat</button>
+         </div>
       </div>
-    </div>
-    <script>
-        $(document).ready(function() {
-          let conversation_history = "";
-      
-          // AI's greeting
-          let greeting = "Hello, how can I help you with the SAT today?";
-          appendMessage(greeting, "SAT Tutor");
-          conversation_history += `SAT Tutor: ${greeting}\n`;
-      
-          function appendMessage(message, sender) {
-            let senderClass = sender === "User" ? "chat-message-text-user" : "chat-message-text-bot";
-            let waitingClass = sender === "SAT Tutor" ? "chat-message-text-waiting" : "";
-            let messageHtml = `
-              <div class="chat-message">
-                <div class="chat-message-text ${senderClass} ${waitingClass}">
-                  <b>${sender}:</b> ${message}`;
-            if (waitingClass !== "") {
-              messageHtml += `
-                  <span class="typing-indicator">
-                    <span></span>
-                    <span></span>
-                    <span></span>
-                  </span>`;
-            }
-            messageHtml += `
-                </div>
-              </div>`;
-            $("#chat-box").append(messageHtml);
-            $("#chat-box").scrollTop($("#chat-box")[0].scrollHeight);
-          }
-      
-          function askQuestion() {
-            let question = $("#chat-input").val();
-            if (question.trim() === "") return;
-            appendMessage(question, "User");
-            conversation_history += `User: ${question}\nSAT Tutor: `;
-            $("#chat-input").val("");
-            $("#chat-submit").prop("disabled", true);
-            $.ajax({
-              type: "POST",
-              url: "/ask",
-              data: {
-                question: question,
-                conversation_history: conversation_history,
-              },
-              success: function(response) {
-                console.log("Response object:", response);
-                $(".typing-indicator").remove();
-                appendMessage(response.response, "SAT Tutor");
-                conversation_history += `${response.response}\n`;
-              },
-              error: function() {
-                appendMessage("Error: Unable to reach the SAT Tutor.", "SAT Tutor");
-              },
-              complete: function() {
-                $("#chat-submit").prop("disabled", false);
-              },
-            });
-          }
-          $("#chat-submit").on("click", function(e) {
-            e.preventDefault();
-            askQuestion();
-          });
-          $("#chat-input").on("keydown", function(e) {
-            if (e.key === "Enter") {
-              e.preventDefault();
-              askQuestion();
-            }
-          });
-        });
-      </script>
-  </body>
+      <div class="chat-container" style="display: none;">
+         <div class="chat-header">SAT/ACT Tutor Chatbot</div>
+         <div class="chat-box" id     ="chat-box"></div>
+         <div class="chat-input-container">
+            <textarea class="chat-input" id="chat-input" placeholder="Type your question..."></textarea>
+            <button class="chat-submit" id="chat-submit">
+            <i class="material-icons">send</i>
+            </button>
+         </div>
+      </div>
+      <script src="{{ url_for('static', filename='script.js') }}"></script>
+   </body>
 </html>
