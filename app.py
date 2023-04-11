@@ -1,9 +1,8 @@
-import os
 import openai
 from flask import Flask, render_template, request, jsonify
 
 app = Flask(__name__)
-openai.api_key = os.environ.get("OPENAI_API_KEY")
+openai.api_key = "your_api_key"
 
 @app.route("/")
 def home():
@@ -20,22 +19,26 @@ def ask():
     try:
         response = generate_response(question, conversation_history)
     except Exception as e:
-        return jsonify({"error": f"Error calling GPT-3.5 Turbo: {str(e)}"}), 500
+        return jsonify({"error": f"Error calling Tutor: {str(e)}"}), 500
 
     return jsonify({"response": response})
 
 def generate_response(question, conversation_history):
-    prompt = f"{conversation_history}\nUser: {question}\nAI:"
-    response = openai.Completion.create(
-        engine="text-davinci-003",
-        prompt=prompt,
-        max_tokens=2000,
-        n=1,
-        stop=None,
-        temperature=0.7,
+    # Format conversation history and current question as messages
+    messages = [{"role": "system", "content": "You are a helpful SAT/ACT tutor."}]
+    if conversation_history:
+        messages.append({"role": "user", "content": conversation_history})
+    messages.append({"role": "user", "content": question})
+
+    # Use the gpt-3.5-turbo model for the response
+    response = openai.ChatCompletion.create(
+        model="gpt-3.5-turbo",
+        messages=messages,
+        max_tokens=2000
     )
 
-    return response.choices[0].text.strip()
+    # Extract and return the assistant's reply
+    return response['choices'][0]['message']['content'].strip()
 
 if __name__ == "__main__":
     app.run(debug=True)
